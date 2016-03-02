@@ -79,7 +79,7 @@ CMD
 
 # Setup our Nomad clients.
 resource "aws_instance" "nomad_client" {
-  count = 1
+  count = 2
   ami   = "${lookup(var.aws_amis, var.aws_region)}"
 
   instance_type = "t2.small"
