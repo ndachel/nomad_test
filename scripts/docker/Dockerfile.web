@@ -1,0 +1,18 @@
+FROM alpine
+MAINTAINER HashiCorp Training <training@hashicorp.com>
+
+# Install Consul Template
+ADD https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip /tmp/
+RUN cd /tmp && \
+  unzip consul-template_0.13.0_linux_amd64.zip && \
+  mv consul-template /bin/consul-template && \
+  rm -rf /tmp/*
+
+# Install DarkHTTPD
+RUN apk add --update darkhttpd && rm -rf /var/cache/apk/*
+
+# Copy our Consul Template template
+ADD ./index.html.ctmpl /index.html.ctmpl
+ADD ./web.sh /web.sh
+
+CMD ["/bin/sh", "web.sh"]

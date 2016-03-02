@@ -1,0 +1,19 @@
+FROM alpine
+MAINTAINER HashiCorp Training <training@hashicorp.com>
+
+# Install Consul Template
+ADD https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip /tmp/
+RUN cd /tmp && \
+  unzip consul-template_0.13.0_linux_amd64.zip && \
+  mv consul-template /bin/consul-template && \
+  rm -rf /tmp/*
+
+# Install HAProxy
+RUN apk add --update haproxy && rm -rf /var/cache/apk/*
+EXPOSE 80
+
+# Copy our Consul Template template
+COPY haproxy.cfg.ctmpl /haproxy.cfg.ctmpl
+ADD ./lb.sh /lb.sh
+
+CMD ["/bin/sh", "lb.sh"]

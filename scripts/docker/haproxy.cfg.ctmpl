@@ -1,0 +1,19 @@
+global
+  uid haproxy
+  gid haproxy
+  chroot /var/empty
+  daemon
+
+defaults
+  mode http
+  timeout connect 5000
+  timeout client  50000
+  timeout server  50000
+
+frontend web
+  bind *:80
+  reqadd X-Forwarded-Proto:\ http
+  default_backend web
+
+backend web{{ range service "web" }}
+  server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
