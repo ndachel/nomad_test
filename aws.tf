@@ -118,7 +118,7 @@ resource "aws_route_table_association" "hashicorp-training" {
 // group is intentionally insecure for the purposes of this tutorial. You should
 // only open required ports in a production environment.
 resource "aws_security_group" "hashicorp-training" {
-  name   = "hashicorp-training-web"
+  name   = "hashicorp-training-123"
   vpc_id = "${aws_vpc.hashicorp-training.id}"
 
   ingress {
