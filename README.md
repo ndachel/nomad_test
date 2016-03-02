@@ -1,4 +1,4 @@
-Atlas Integration
+Atlas Integration - Is Fun
 =================
 Up until this point, we have been running Terraform locally. This is great for
 a single developer, but tends to break down in large teams. Instead, it is
